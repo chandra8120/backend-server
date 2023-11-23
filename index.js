@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 const express = require("express");
 const app = express();
 const data = require('./Model');
-const bcrypt = require('bcrypt');
 const cors = require("cors");
 app.use(express.json());                 
 
