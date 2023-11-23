@@ -17,5 +17,8 @@
     "g": "^2.0.1",
     "mongoose": "^8.0.1",
     "nodemon": "^3.0.1"
+  },
+  "devDependencies": {
+    "bcrypt": "^5.1.1"
   }
 }

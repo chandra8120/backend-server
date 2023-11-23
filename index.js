@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const express = require("express");
+const bcrypt = require('bcrypt');
 const app = express();
 const data = require('./Model');
 const cors = require("cors");
@@ -94,12 +95,12 @@ app.post('/signup', async (req, res) => {
     const { username, password } = req.body;
 
     
-    const newPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hash(password, 10);
     await User.findOne({email:req.body.email})
 
     const newUser = new User({
       username,
-      password: newPassword,
+      password: hashedPassword,
     });
 
     await newUser.save()
