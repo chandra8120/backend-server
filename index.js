@@ -95,17 +95,19 @@ app.post('/signup', async (req, res) => {
     const { username, password } = req.body;
 
     
-    const hashedPassword = await bcrypt.hash(password, 10);
+    // const newPassword = await bcrypt.hash(password, 10);
+    await User.findOne({email:req.body.email})
 
     const newUser = new User({
       username,
-      password: hashedPassword,
+    //   password: newPassword,
     });
 
-    await newUser.save();
+    await newUser.save()
 
     res.status(201).json({ message: 'User registered successfully' });
-  } catch (error) {
+  } 
+  catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
