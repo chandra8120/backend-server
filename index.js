@@ -95,15 +95,8 @@ app.post('/signup', async (req, res) => {
     const { username, password } = req.body;
 
     
-    // const hashedPassword = await bcrypt.hash(password, 10);
+   
       await User.findOne({email:req.body.email})
-
-    // const passwordMatch=await bcrypt.compare(password,User.password)
-    // await User.findOne({email:req.body.email})
-
-    // const newUser=new User({
-    //   username,password:passwordMatch
-    // })
 
     const newUser = new User({
       username,
