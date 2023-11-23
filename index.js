@@ -1,6 +1,6 @@
+const bcrypt = require('bcryptjs');
 const mongoose = require("mongoose");
 const express = require("express");
-const bcrypt = require('bcryptjs');
 const app = express();
 const data = require('./Model');
 const cors = require("cors");
@@ -24,8 +24,7 @@ app.get("/", (req, res) => {
   res.send("<h2>hello chandra</h2>");
 });
 
-mongoose
-  .connect("mongodb+srv://chandra_8120:chandra@cluster0.k6nq4jt.mongodb.net/?retryWrites=true&w=majority")
+mongoose.connect("mongodb+srv://chandra_8120:chandra@cluster0.k6nq4jt.mongodb.net/?retryWrites=true&w=majority")
   .then(() => console.log("DB connected..."))
   .catch((error) => console.log("error displayed", error));
 
@@ -92,12 +91,9 @@ const User = mongoose.model('User', new mongoose.Schema({
 
 app.post('/signup', async (req, res) => {
   try {
-    const { username, password } = req.body;
-
-    
-   
+    const { username, password } = req.body;   
       await User.findOne({email:req.body.email})
-
+       const hashedPassword=await bcrypt.compare(password,User.password)
     const newUser = new User({
       username,
       password: hashedPassword,
