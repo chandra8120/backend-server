@@ -28,6 +28,9 @@ mongoose.connect("mongodb+srv://chandra_8120:chandra@cluster0.k6nq4jt.mongodb.ne
   .then(() => console.log("DB connected..."))
   .catch((error) => console.log("error displayed", error));
 
+// mongoose.connect("mongodb+srv://chandra_8120:chandra@cluster0.k6nq4jt.mongodb.net/your_database_name?retryWrites=true&w=majority")
+//   .then(() => console.log("DB connected..."))
+//   .catch((error) => console.log("error displayed", error));
 
 app.post("/data", async (req, res) => {
 
@@ -89,21 +92,47 @@ const User = mongoose.model('User', new mongoose.Schema({
 
 }));
 
+// app.post('/signup', async (req, res) => {
+//   try {
+//     const { username, password } = req.body;   
+
+//       await User.findOne({email:req.body.email})
+      
+//        const hashedPassword=await bcrypt.compare(password,User.password)
+
+
+//     const newUser = new User({
+//       username,
+//       password: hashedPassword,
+//     });
+
+//     await newUser.save()
+
+//     res.status(201).json({ message: 'User registered successfully' });
+//   } 
+//   catch (error) {
+//     console.error(error);
+//     res.status(500).json({ error: 'Internal Server Error' });
+//   }
+// });
+
+
 app.post('/signup', async (req, res) => {
   try {
-    const { username, password } = req.body;   
-      await User.findOne({email:req.body.email})
-       const hashedPassword=await bcrypt.compare(password,User.password)
+    const { username, password } = req.body;
+
+    // Hash the password
+    const hashedPassword = await bcrypt.hash(password, 10);
+
     const newUser = new User({
       username,
       password: hashedPassword,
     });
 
-    await newUser.save()
+    await newUser.save();
 
     res.status(201).json({ message: 'User registered successfully' });
-  } 
-  catch (error) {
+  } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
