@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const express = require("express");
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const app = express();
 const data = require('./Model');
 const cors = require("cors");
